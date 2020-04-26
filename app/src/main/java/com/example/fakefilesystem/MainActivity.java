@@ -1,31 +1,39 @@
 package com.example.fakefilesystem;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.FrameLayout;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 public class MainActivity extends AppCompatActivity {
 
-    private JSONObject jsonObject;
-    private RecyclerView recyclerView;
+    private static final String TAG = "MainActivity";
+    private FrameLayout fragmentContainer;
+    private JSONObject inputJSON;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        initRecyclerView();
+        findAndSetupViews();
+        try {
+            initializeFakeFilesystemJSON();
+        } catch (JSONException e) {
+            throw new IllegalArgumentException("Invalid JSON file " + TAG);
+        }
     }
 
-    private void initRecyclerView() {
-        recyclerView = findViewById(R.id.recycler_view);
+    private void initializeFakeFilesystemJSON() throws JSONException {
+        inputJSON = new JSONObject(getResources().openRawResource(R.raw.sample).toString());
     }
 
-    @Override
-    public void onBackPressed() {
-        super.onBackPressed();
+    private void findAndSetupViews() {
+        fragmentContainer = findViewById(R.id.fragment_container);
     }
+
+
 }

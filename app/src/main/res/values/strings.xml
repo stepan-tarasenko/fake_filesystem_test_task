@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">FakeFileSystem</string>
+    <string name="app_name">FakeFilesystem</string>
+    <string name="file_name">Filename: %s</string>
+    <string name="file_content">File content:\n%s</string>
 </resources>
