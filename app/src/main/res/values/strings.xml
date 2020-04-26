@@ -2,4 +2,7 @@
     <string name="app_name">FakeFilesystem</string>
     <string name="file_name">Filename: %s</string>
     <string name="file_content">File content:\n%s</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
