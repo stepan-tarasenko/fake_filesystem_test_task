@@ -1,16 +1,30 @@
 package com.example.fakefilesystem.models;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+
 public class DisplayModel {
     private String name;
     private String type;
-    private String items;
+    private Object items;
+    //private String items;
     private String content;
 
-    public DisplayModel(String name, String type, String items, String content) {
+    public DisplayModel(String name, String type, Object items, String content) {
         this.name = name;
         this.type = type;
         this.items = items;
         this.content = content;
+    }
+
+    @Override
+    public String toString() {
+        return "DisplayModel{" +
+                "name='" + name + '\'' +
+                ", type='" + type + '\'' +
+                ", items='" + items + '\'' +
+                ", content='" + content + '\'' +
+                '}';
     }
 
     public String getName() {
@@ -29,11 +43,11 @@ public class DisplayModel {
         this.type = type;
     }
 
-    public String getItems() {
+    public Object getItems() {
         return items;
     }
 
-    public void setItems(String items) {
+    public void setItems(Object items) {
         this.items = items;
     }
 

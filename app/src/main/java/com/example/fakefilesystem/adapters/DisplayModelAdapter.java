@@ -1,5 +1,6 @@
 package com.example.fakefilesystem.adapters;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,31 +12,41 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.fakefilesystem.R;
 import com.example.fakefilesystem.models.DisplayModel;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class DisplayModelAdapter extends RecyclerView.Adapter<DisplayModelAdapter.DisplayModelViewHolder> {
-    private ArrayList<DisplayModel> data;
-    private final String [] availableFileExtensions = {"docx", "pdf", "xml"};
+    private List<DisplayModel> data;
+    private OnNoteListener onNoteListener;
 
-    public static class DisplayModelViewHolder extends RecyclerView.ViewHolder {
+    public static class DisplayModelViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         public ImageView mImageView;
         public TextView mTextView;
+        public OnNoteListener onNoteListener;
 
-        public DisplayModelViewHolder(View itemView) {
+        public DisplayModelViewHolder(View itemView, OnNoteListener onNoteListener) {
             super(itemView);
             mImageView = itemView.findViewById(R.id.item_image);
             mTextView = itemView.findViewById(R.id.item_name);
+            this.onNoteListener = onNoteListener;
+
+            itemView.setOnClickListener(this);
+        }
+
+        @Override
+        public void onClick(View v) {
+            onNoteListener.onNoteClick(getAdapterPosition());
         }
     }
 
-    public DisplayModelAdapter(ArrayList<DisplayModel> data) {
+    public DisplayModelAdapter(List<DisplayModel> data, OnNoteListener onNoteListener) {
         this.data = data;
+        this.onNoteListener = onNoteListener;
     }
 
     @Override
     public DisplayModelViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycler_item, parent, false);
-        DisplayModelViewHolder evh = new DisplayModelViewHolder(v);
+        DisplayModelViewHolder evh = new DisplayModelViewHolder(v, onNoteListener );
         return evh;
     }
 
@@ -48,14 +59,17 @@ public class DisplayModelAdapter extends RecyclerView.Adapter<DisplayModelAdapte
 
     private int getImageByType(DisplayModel model) {
         switch (model.getType()){
+            case "FOLDER":
+                return R.drawable.folder;
             case "FILE":
-                if (model.getName().split(".")[1].equals("xml")){
+                Log.e("HELLO", model.getName());//.split("."));
+                if (model.getName().contains("xml")){
                     return R.drawable.xml;
                 }
-                if (model.getName().split(".")[1].equals("pdf")){
+                if (model.getName().contains("pdf")){
                     return R.drawable.pdf;
                 }
-                if (model.getName().split(".")[1].equals("docx")){
+                if (model.getName().contains("docx")){
                     return R.drawable.docx;
                 }
                 return R.drawable.file;
@@ -67,5 +81,9 @@ public class DisplayModelAdapter extends RecyclerView.Adapter<DisplayModelAdapte
     @Override
     public int getItemCount() {
         return data.size();
+    }
+
+    public interface OnNoteListener{
+        void onNoteClick(int position);
     }
 }
