@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.TextView;
 
-import static com.example.fakefilesystem.fragments.ListFragment.CONTENT_EXTRA;
-import static com.example.fakefilesystem.fragments.ListFragment.NAME_EXTRA;
+import static com.example.fakefilesystem.utils.StringConstants.JSON_CONTENT_KEY;
+import static com.example.fakefilesystem.utils.StringConstants.JSON_NAME_KEY;
 
 public class FileViewerActivity extends AppCompatActivity {
 
@@ -26,16 +26,16 @@ public class FileViewerActivity extends AppCompatActivity {
 
     private void displayFileContent(Intent data) {
         if(isInputDataValid(data)){
-            fileName.setText(data.getStringExtra(NAME_EXTRA));
-            fileContent.setText(data.getStringExtra(CONTENT_EXTRA));
+            fileName.setText(data.getStringExtra(JSON_NAME_KEY));
+            fileContent.setText(data.getStringExtra(JSON_CONTENT_KEY));
         } else {
             throw new IllegalArgumentException("Invalid data " + TAG);
         }
     }
 
     private boolean isInputDataValid(Intent data) {
-        return data.getStringExtra(NAME_EXTRA) != null
-                && data.getStringExtra(CONTENT_EXTRA) != null;
+        return data.getStringExtra(JSON_NAME_KEY) != null
+                && data.getStringExtra(JSON_CONTENT_KEY) != null;
     }
 
     private void findAndSetupViews() {

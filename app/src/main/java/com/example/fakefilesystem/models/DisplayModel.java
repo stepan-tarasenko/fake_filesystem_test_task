@@ -1,16 +1,14 @@
 package com.example.fakefilesystem.models;
 
-import org.json.JSONArray;
-import org.json.JSONObject;
+import java.util.List;
 
 public class DisplayModel {
     private String name;
     private String type;
-    private Object items;
-    //private String items;
+    private List<DisplayModel> items;
     private String content;
 
-    public DisplayModel(String name, String type, Object items, String content) {
+    public DisplayModel(String name, String type, List<DisplayModel> items, String content) {
         this.name = name;
         this.type = type;
         this.items = items;
@@ -43,11 +41,11 @@ public class DisplayModel {
         this.type = type;
     }
 
-    public Object getItems() {
+    public List<DisplayModel> getItems() {
         return items;
     }
 
-    public void setItems(Object items) {
+    public void setItems(List<DisplayModel> items) {
         this.items = items;
     }
 

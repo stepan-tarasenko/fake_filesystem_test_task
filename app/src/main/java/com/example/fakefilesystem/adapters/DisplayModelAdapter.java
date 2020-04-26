@@ -1,6 +1,5 @@
 package com.example.fakefilesystem.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,12 @@ import com.example.fakefilesystem.R;
 import com.example.fakefilesystem.models.DisplayModel;
 
 import java.util.List;
+
+import static com.example.fakefilesystem.utils.StringConstants.EXT_DOCX;
+import static com.example.fakefilesystem.utils.StringConstants.EXT_PDF;
+import static com.example.fakefilesystem.utils.StringConstants.EXT_XML;
+import static com.example.fakefilesystem.utils.StringConstants.TYPE_FILE;
+import static com.example.fakefilesystem.utils.StringConstants.TYPE_FOLDER;
 
 public class DisplayModelAdapter extends RecyclerView.Adapter<DisplayModelAdapter.DisplayModelViewHolder> {
     private List<DisplayModel> data;
@@ -59,17 +64,16 @@ public class DisplayModelAdapter extends RecyclerView.Adapter<DisplayModelAdapte
 
     private int getImageByType(DisplayModel model) {
         switch (model.getType()){
-            case "FOLDER":
+            case TYPE_FOLDER:
                 return R.drawable.folder;
-            case "FILE":
-                Log.e("HELLO", model.getName());//.split("."));
-                if (model.getName().contains("xml")){
+            case TYPE_FILE:
+                if (model.getName().contains(EXT_XML)){
                     return R.drawable.xml;
                 }
-                if (model.getName().contains("pdf")){
+                if (model.getName().contains(EXT_PDF)){
                     return R.drawable.pdf;
                 }
-                if (model.getName().contains("docx")){
+                if (model.getName().contains(EXT_DOCX)){
                     return R.drawable.docx;
                 }
                 return R.drawable.file;
